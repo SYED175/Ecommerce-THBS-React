@@ -180,3 +180,9 @@ span {
   text-decoration: none;
   cursor: pointer;
 }
+/* Profile */
+.user-img{
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+}

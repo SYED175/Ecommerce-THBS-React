@@ -1,8 +1,12 @@
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+import Profile from "../components/Admin/Profile";
 
 const AdminPage = withAuthenticationRequired(() => {
-  const { user } = useAuth0();
-  return <h1>Hii {user?.name} successfully Authenticated</h1>;
+  return (
+    <>
+      <Profile />
+    </>
+  );
 });
 
 export default AdminPage;
