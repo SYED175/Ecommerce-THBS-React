@@ -1,5 +1,9 @@
 const UnderConstruction = () => {
-  return <div>This page is still under construction 😅.</div>;
+  return (
+    <div className="container d-flex justify-content-center mt-4">
+      This is a sample page.
+    </div>
+  );
 };
 
 export default UnderConstruction;
