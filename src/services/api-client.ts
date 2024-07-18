@@ -9,4 +9,6 @@ export default axios.create({
  * Step2: implement features like Auth0 with Profile, Login, Logout, Quantity.
  * Step3: push changes to github, with seperate commits.
  * Step4: host this on render or vercel.
+ *
+ * note: request may take 50 seconds or more if inactive, which strapi hosted on render.
  */
