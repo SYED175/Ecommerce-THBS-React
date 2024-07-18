@@ -6,7 +6,7 @@ const Profile = withAuthenticationRequired(() => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="container d-flex flex-column align-items-center">
+    <div className="container d-flex flex-column align-items-center mt-4">
       <img src={user?.picture} alt="user_picture" className="user-img mb-3" />
       <p className="text-secondary">
         Username: <span className="text-primary">{user?.name}</span>

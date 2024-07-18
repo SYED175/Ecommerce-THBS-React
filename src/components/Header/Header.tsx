@@ -6,9 +6,13 @@ import { useState } from "react";
 import useNavBar from "../../hooks/useNavBar";
 import logo from "../../assets/logo-removebg-preview.png";
 import { FaBars } from "react-icons/fa";
+import { useAuth0 } from "@auth0/auth0-react";
+import LogoutButton from "../Admin/LogoutButton";
+import LoginButton from "../Admin/LoginButton";
 
 const Header = () => {
   const { data, error, isLoading } = useNavBar();
+  const { isAuthenticated } = useAuth0();
 
   const cartList: Product[] = useSelector((state: any) => state.cart);
   const [titleSelected, setTitleSelected] = useState(data?.links[0].label);
@@ -46,17 +50,23 @@ const Header = () => {
                 </NavLink>
               </li>
             ))}
-            <Link to="cart" className={`nav-item active`}>
-              <button
-                className="btn sd-cart-btn custom-link"
-                onClick={() => {
-                  setTitleSelected("");
-                }}
-              >
-                <CiShoppingCart size="27px" />
-                <div className="sd-div">{cartList.length}</div>
-              </button>
-            </Link>
+            <li className="nav-item">
+              <Link to="cart" className={`nav-item active`}>
+                <button
+                  className="btn sd-cart-btn custom-link"
+                  onClick={() => {
+                    setTitleSelected("");
+                  }}
+                >
+                  <CiShoppingCart size="27px" />
+                  <div className="sd-div">{cartList.length}</div>
+                </button>
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+            </li>
           </ul>
         </div>
       </div>
