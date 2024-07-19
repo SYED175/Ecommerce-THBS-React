@@ -36,6 +36,15 @@ const cartSlice = createSlice({
       saveToLocalStorage(updatedState);
       return updatedState;
     },
+    setItemQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+      console.log(quantity, "slice");
+      return state.map((cartItem) => {
+        if (cartItem.id === id) {
+          return { ...cartItem, quantity: quantity };
+        } else return cartItem;
+      });
+    },
   },
 });
 
