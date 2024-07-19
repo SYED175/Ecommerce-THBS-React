@@ -1,6 +1,9 @@
 import { useDispatch } from "react-redux";
 import { CartProduct } from "../../interfaces/CartProduct";
 import { cartAction } from "../../store/CartSlice";
+import { QUANTITY } from "../../utils/constants";
+import { useState } from "react";
+import { toast, Toaster } from "sonner";
 
 interface Props {
   cartItem: CartProduct;
@@ -8,8 +11,41 @@ interface Props {
 
 const CartItem = ({ cartItem }: Props) => {
   const dispatch = useDispatch();
+  const [quantityLargerThan10, setQuantityLargerThan10] = useState(false);
   const handleCartItem = () => {
     dispatch(cartAction.removeItemFromCart(cartItem.id));
+  };
+  const itemQuantityHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const totalQuantity = Number(event.target.value);
+    if (totalQuantity === 10) {
+      setQuantityLargerThan10(true);
+      return;
+    }
+    dispatch(
+      cartAction.setItemQuantity({
+        id: cartItem.id,
+        quantity: totalQuantity,
+      })
+    );
+  };
+  const itemQuantityHandlerInput = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const totalQuantity = Number(event.target.value);
+    if (totalQuantity > cartItem.count) {
+      toast(`This seller has only ${cartItem.count} of these available 😢`, {
+        duration: 10000,
+        position: "top-left",
+        icon: <span>⚠️</span>,
+      });
+      return;
+    }
+    dispatch(
+      cartAction.setItemQuantity({
+        id: cartItem.id,
+        quantity: totalQuantity,
+      })
+    );
   };
   return (
     <div className="card my-3">
@@ -23,27 +59,39 @@ const CartItem = ({ cartItem }: Props) => {
             <p className="stock">In Stock</p>
             <div className="row">
               <div className="col-auto">
-                <div className="dropdown">
-                  <button
-                    className="btn btn-sm btn-secondary dropdown-toggle btn-toggle-sd"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
+                {cartItem.quantity > 9 || quantityLargerThan10 ? (
+                  <div className="container d-flex flex-row justify-content-center">
+                    <Toaster closeButton />
+                    <input
+                      type="text"
+                      className="sd-qty-input"
+                      onChange={itemQuantityHandlerInput}
+                      maxLength={4}
+                      placeholder="qty"
+                      value={
+                        cartItem.quantity > cartItem.count
+                          ? cartItem.count
+                          : cartItem.quantity
+                      }
+                    />
+                  </div>
+                ) : (
+                  <select
+                    className="form-select"
+                    aria-label="Default select example"
+                    onChange={itemQuantityHandler}
+                    value={cartItem.quantity || ""}
                   >
-                    Qty: {cartItem.quantity}
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a className="dropdown-item">1</a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item">2</a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item">3</a>
-                    </li>
-                  </ul>
-                </div>
+                    {QUANTITY.map((value) => (
+                      <option key={value} value={value}>
+                        {value}
+                      </option>
+                    ))}
+                    <option className="text-success" value="10">
+                      10+
+                    </option>
+                  </select>
+                )}
               </div>
               <div className="col-auto">
                 <span>|</span>
