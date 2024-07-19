@@ -186,3 +186,19 @@ span {
   width: 200px;
   border-radius: 100px;
 }
+
+
+
+.sd-qty-input{
+  max-width: 45px;
+}
+.btn-update-qty{
+  height: 27px;
+  width: 40px;
+  padding: 0px;
+  font-size: 10px;
+  border-radius: 12px;
+}
+
+
+ 
