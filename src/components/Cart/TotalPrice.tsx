@@ -14,7 +14,7 @@ const TotalPrice = () => {
   return (
     <div className="container my-3 place-order py-3">
       <h5>
-        Total ({totalItems} items): ₹ {totalCartPrice}
+        Total ({totalItems} items): ₹ {totalCartPrice.toFixed(2)}
       </h5>
       <button className="btn btn-warning btn-input">Proceed to Buy</button>
     </div>
