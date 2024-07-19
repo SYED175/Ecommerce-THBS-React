@@ -5,8 +5,6 @@ export const FILTER_OPTIONS: FilterOption[] = [
   { value: "lowToHigh", label: "Price Low to High" },
   { value: "sortByRating", label: "Sort by Rating ⭐" },
 ];
-
-
-// constants.ts
+export const QUANTITY = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export const TOTAL_ITEMS_LENGTH = 20;
 export const INITIAL_PAGE_NUMBER = 1;
